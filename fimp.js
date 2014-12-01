@@ -194,7 +194,7 @@ bot.addListener('message', function(from, to, message) {
 bot.addListener('join', function(channel, who) {
   if (who== bot_nick) {
 //uncomment below to announce when this bot joins
-    bot.say(channel,'I\'m ' + bot_nick + ', try out these commands 4!joke 4!teach 4!add nick text');
+    bot.say(channel,'I\'m ' + bot_nick + ', try out these commands 4!joke 4!teach !lanix 4!add nick text');
   }
   else {
     var list = _.shuffle(greetings),
