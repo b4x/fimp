@@ -1,0 +1,52 @@
+pwd: The pwd command allows you to know the directory in which you're located (pwd stands for "print working directory"). For example, pwd in the desktop directory will show ~/Desktop. Note that the GNOME terminal also displays this information in the title bar of its window.
+cd: The cd command allows you to change directories. When you open a terminal, you will be in your home directory. To move around the filesystem, use cd.
+To navigate to your desktop directory, use cd ~/Desktop
+To navigate into the root directory, use cd /
+To navigate to your home directory, use cd
+To navigate up one directory level, use cd ..
+To navigate to the previous directory (or back), use cd -
+To navigate through multiple levels of directories at once, use cd /var/www, for example, which will take you directly to the /www subdirectory of /var.
+cp: The cp command makes a copy of a file for you. For example, cp file foo makes an exact copy of the file whose name you entered and names the copy foo, but the first file will still exist with its original name. After you use mv, the original file no longer exists, but after you use cp, that file stays and a new copy is made.
+mv: The mv command moves a file to a different location or renames a file. Examples are as follows: mv file foo renames the original file to foo. mv foo ~/Desktop moves the file foo to your desktop directory but does not rename it. You must specify a new filename to rename a file.
+To save on typing, you can substitute ~ in place of the home directory.
+Note: If you are using mv with sudo, you will not be able to use the ~ shortcut. Instead, you will have to use the full pathnames to your files.
+rm: Use this command to remove or delete a file in your directory. It does not work on directories that contain files.
+ls: The ls command shows you the files in your current directory. Used with certain options, it lets you see file sizes, when files where created, and file permissions. For example, ls ~ shows you the files that are in your home directory.
+mkdir: The mkdir command allows you to create directories. For example, mkdir music creates a music directory.
+chmod: The chmod command changes the permissions on the files listed.
+Permissions are based on a fairly simple model. You can set permissions for user, group, and world, and you can set whether each can read, write, and/or execute the file. For example, if a file had permission to allow everybody to read but only the user could write, the permissions would read rwxr--r--. To add or remove a permission, you append a + or a - in front of the specific permission. For example, to add the capability for the group to edit in the previous example, you could type chmod g+x file.
+chown: The chown command allows the user to change the user and group ownerships of a file. For example, chown jim file changes the ownership of the file to Jim.
+df: The df command displays filesystem disk space usage for all partitions. The command df-h is probably the most useful. It uses megabytes (M) and gigabytes (G) instead of blocks to report. (-h means "human-readable.")
+free: The free command displays the amount of free and used memory in the system. For example, free -m gives the information using megabytes, which is probably most useful for current computers.
+top: The top command displays information on your Linux system, running processes, and system resources, including the CPU, RAM, swap usage, and total number of tasks being run. To exit top, press Q.
+uname -a: The uname command with the -a option prints all system information, including machine name, kernel name, version, and a few other details. This command is most useful for checking which kernel you're using.
+lsb_release -a: The lsb_release command with the -a option prints version information for the Linux release you're running. For example:
+ifconfig: This reports on your system's network interfaces.
+iwconfig: The iwconfig command shows you any wireless network adapters and the wireless-specific information from them, such as speed and network connected.
+ps: The ps command allows you to view all the processes running on the machine.
+lspci: The lspci command lists all PCI buses and devices connected to them. This commonly includes network cards and sound cards.
+lsusb: The lsusb command lists all USB buses and any connected USB devices, such as printers and thumb drives.
+lshal: The lshal command lists all devices the hardware abstraction layer (HAL) knows about, which should be most hardware on your system.
+lshw: The lshw command lists hardware on your system, including maker, type, and where it is connected.
+grep: The grep command allows you to search inside a number of files for a particular search pattern and then print matching lines. For example, grep blah file will search for the text "blah" in the file and then print any matching lines.
+sed: The sed (or Stream EDitor) command allows search and replace of a particular string in a file. For example, if you want to find the string "cat" and replace it with "dog" in a file named pets, type sed s/cat/dog/g pets.
+Both grep and sed are extremely powerful programs. There are many excellent tutorials available on using them, but here are a few good Web sites to get you started: www.panix.com/~elflord/unix/grep.html www.itworld.com/Comp/2378/swol-1199-unix101/
+cat: The cat command, short for concatenate, is useful for viewing and adding to text files. The simple command cat FILENAME displays the contents of the file. Using cat FILENAME file adds the contents of the first file to the second.
+nano: Nano is a simple text editor for the command line. To open a file, use nano filename. Commands listed at the bottom of the screen are accessed via pressing Ctrl followed by the letter.
+less: The less command is used for viewing text files as well as standard output. A common usage is to pipe another command through less to be able to see all the output, such as ls | less.
+adduser: The adduser command creates a new user. To create a new user, simply type sudo adduser $loginname. This creates the user's home directory and default group. It prompts for a user password and then further details about the user.
+passwd: The passwd command changes the user's password. If run by a regular user, it will change his or her password. If run using sudo, it can change any user's password. For example, sudo passwd joe changes Joe's password.
+who: The who command tells you who is currently logged into the machine.
+addgroup: The addgroup command adds a new group. To create a new group, type sudo addgroup $groupname.
+deluser: The deluser command removes a user from the system. To remove the user's files and home directory, you need to add the -remove-home option.
+delgroup: The delgroup command removes a group from the system. You cannot remove a group that is the primary group of any users.
+Virtually all commands understand the -h (or --help) option, which produces a short usage description of the command and its options, then exits back to the command prompt. Try man -h or man --help to see this in action.
+Every command and nearly every application in Linux has a man (manual) file, so finding such a file is as simple as typing man command to bring up a longer manual entry for the specified command. For example, man mv brings up the mv (move) manual.
+man man: man man brings up the manual entry for the man command, which is a good place to start!
+man intro: man intro is especially useful. It displays the Introduction to User Commands, which is a well-written, fairly brief introduction to the Linux command line.
+man -k foo: This searches the man files for "foo". Try man -k nautilus to see how this works. Note: man -k foo is the same as the apropos command.
+man -f foo: This searches only the titles of your system's man files. Try man -f gnome, for example. Note: man -f foo is the same as the whatis command.
+Wildcards: * matches any number of characters. For example, *.rar matches any file with the ending .rar.
+Wildcards: ? matches any single character. For example, ?.rar matches a.rar but not ab.rar.
+Wildcards: [characters] matches any of the characters within the brackets. For example, [ab].rar matches a.rar and b.rar but not c.rar.
+Wildcards: [!characters] matches any characters that are not listed. For example, [!ab].rar matches c.rar but not a.rar or b.rar.
