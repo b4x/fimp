@@ -7,8 +7,8 @@ for example 'npm install graceful-fs'
 */
 
 var irc = require('irc'),
-  	fs = require('fs'),
-  	_ = require('underscore');
+    fs = require('fs'),
+    _ = require('underscore');
 
 /*
 #######################
