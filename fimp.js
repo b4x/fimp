@@ -27,11 +27,10 @@ var bot_nick= 'fimp',
 
 var sayings = fs.readFileSync('jokes.txt').toString().split("\n"),
     greetings = fs.readFileSync('greetings.txt').toString().split("\n"),
-    icelandic = fs.readFileSync('icelandic.txt').toString().split("\n");
+    icelandic = fs.readFileSync('icelandic.txt').toString().split("\n"),
     lanix = fs.readFileSync('lanix.txt').toString().split("\n");
 
 var userDict = {
-  
   "b4x": {},
   "jasonb": {},
   "ligent": {},
@@ -64,7 +63,7 @@ function loadSayings() {
 // Add a saying to a users file, and output a message from the bot "TO" the channel
 function addSaying(to, user, saying) {
   var userFile = usersFilePath+user+".txt";
-  fs.appendFile(userFile, saying, function(err) {
+  fs.appendFile(userFile, saying+"\n", function(err) {
     if (err) {
       //maybe log out an error message?
     }
@@ -157,7 +156,7 @@ bot.addListener('message', function(from, to, message) {
       var nick = com.params[0],
           toAdd = '';
       com.params.shift();
-      toAdd = com.params.join(' ')+'\n'; // newline is already added
+      toAdd = com.params.join(' ');
       
       if (nick == bot_nick) {
         // If someone tried to add a saying to the bots nick
@@ -193,7 +192,7 @@ bot.addListener('message', function(from, to, message) {
 
 bot.addListener('join', function(channel, who) {
   if (who== bot_nick) {
-//uncomment below to announce when this bot joins
+    //uncomment below to announce when this bot joins
     bot.say(channel,'I\'m ' + bot_nick + ', try out these commands 4!joke 4!teach !lanix 4!add nick text');
   }
   else {
