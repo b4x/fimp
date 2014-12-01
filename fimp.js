@@ -19,7 +19,7 @@ change these to suit your needs
 var bot_nick= 'fimp',
     bot_user= 'fimp',
     bot_name= 'b4x\'s imp',
-    this_channel = '#wotc',
+    this_channel = '#76chan',
     this_server = 'irc.76chan.org',
     server_port = '6667',
     commandIdentifer = '!',
@@ -30,19 +30,7 @@ var sayings = fs.readFileSync('jokes.txt').toString().split("\n"),
     icelandic = fs.readFileSync('icelandic.txt').toString().split("\n"),
     lanix = fs.readFileSync('lanix.txt').toString().split("\n");
 
-var userDict = {
-  "b4x": {},
-  "jasonb": {},
-  "ligent": {},
-  "dddudeman": {},
-  "duckmandrake": {},
-  "finlandia": {},
-  "brynjar": {},
-  "warmang": {},
-  "fullchan": {},
-  "copypaste": {},
-  "matr1xf1ng3rs": {}
-};
+var userDict = {}; // User Dictionary (cache)
 
 var bot = new irc.Client(this_server, bot_nick, {
   userName: bot_user,
@@ -51,6 +39,22 @@ var bot = new irc.Client(this_server, bot_nick, {
   port: server_port,
   debug: true
 });
+
+// Load users (from the usersFilePath) format is nick.txt - Extract the nick and add it to userDict
+function loadUsers() {
+  fs.readdir(usersFilePath, function(err, files) {
+    if (err) {
+      // failed to read the dir. Maybe logout error?
+    }
+    else {
+      files.forEach(function(file) {
+        var nick = file.split(".")[0];
+        userDict[nick] = {};
+      });
+      loadSayings(); // go ahead an do an inital load for the sayings
+    }
+  });
+}
 
 // Reload the sayings for each user back into cache. (Call after adding new saying)
 function loadSayings() {
@@ -89,7 +93,7 @@ function parseCommand(message) {
   }
 }
 
-loadSayings();
+loadUsers();
 
 bot.addListener('error', function(message) {
   // Have to listen for an error event.
@@ -163,7 +167,12 @@ bot.addListener('message', function(from, to, message) {
         bot.say(to, 'No fuck you');
       }
       else {
-        // Add a saying to the nicks file
+        if (!_.has(userDict, nick)) {
+          // If our user dictionary does not contain the nick. We need to add them
+          userDict[nick] = {};
+        }
+        
+        // Add a saying to the nicks saying file
         addSaying(to, nick, toAdd);
       }
     }
@@ -183,22 +192,33 @@ bot.addListener('message', function(from, to, message) {
   }
 });
 
+bot.addListener('pm', function(nick, message) {
+  var com = parseCommand(message);
+  
+  if (com) {
+    
+    if (com.command == 'list') {
+      bot.say(nick, '-- User Dictionary --');
+      for (var user in userDict) {
+        bot.say(nick, '  '+user);
+      }
+    }
+  }
+});
+
 /*
 #########################
 #announce/greet function#
 #########################
-
 */
 
 bot.addListener('join', function(channel, who) {
-  if (who== bot_nick) {
-    //uncomment below to announce when this bot joins
+  if (who == bot_nick) {
     bot.say(channel,'I\'m ' + bot_nick + ', try out these commands 4!joke 4!teach !lanix 4!add nick text');
   }
   else {
     var list = _.shuffle(greetings),
         toSay = _.sample(list);
-    //bot.say(channel, toSay);
     bot.say(channel,''+toSay+who);
   }
 });
