@@ -28,7 +28,7 @@ var bot_nick= 'fimp',
 var sayings = fs.readFileSync('jokes.txt').toString().split("\n"),
     greetings = fs.readFileSync('greetings.txt').toString().split("\n"),
     icelandic = fs.readFileSync('icelandic.txt').toString().split("\n"),
-    lanix = fs.readFileSync('lanix.txt').toString().split("\n");
+    linux = fs.readFileSync('linux.txt').toString().split("\n");
 
 var userDict = {}, // User Dictionary (cache)
     nicks = {}; 
@@ -110,9 +110,9 @@ bot.addListener('message', function(from, to, message) {
     // If there was a command (!command)
     
     /**
-    ###############
-    #joke function#
-    ###############
+    ##############
+    #joke command#
+    ##############
     joke function listens for !joke, !Joke or !JOKE, and returns one line from 
     jokes.txt if called change
     */
@@ -123,9 +123,9 @@ bot.addListener('message', function(from, to, message) {
     }
     
     /**
-    ################
-    #teach function#
-    ################
+    ###############
+    #teach command#
+    ###############
     teach function listens for !teach, and returns one line 
     from icelandic.txt if called change
     */
@@ -136,14 +136,14 @@ bot.addListener('message', function(from, to, message) {
     }
 
     /**
-    ################
-    #lanix function#
-    ################
-    lanix function listens for !lanix, and returns one line 
-    from lanix.txt if called change
+    ###############
+    #linux command#
+    ###############
+    linux function listens for !linux, and returns one line 
+    from linux.txt if called change
     */
-    if (com.command.match(/lanix/i)) {
-      list = _.shuffle(lanix);
+    if (com.command.match(/linux/i)) {
+      list = _.shuffle(linux);
       toSay = _.sample(list);
       bot.say(to, toSay);
     }
@@ -231,7 +231,7 @@ bot.addListener('names', function(chan, chanNicks) {
 
 bot.addListener('join', function(channel, who) {
   if (who == bot_nick) {
-    bot.say(channel,'I\'m ' + bot_nick + ', try out these commands 4!joke 4!teach !lanix 4!add nick text');
+    bot.say(channel,'I\'m ' + bot_nick + ', try out these commands 4!joke 4!teach !linux 4!add nick text');
   }
   else {
     var list = _.shuffle(greetings),
