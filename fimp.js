@@ -1,14 +1,24 @@
 /*
+##############
+#friendly imp#
+##############
+friendly imp or fimp is an IRC bot that uses node.js
+*/
+
+
+
+/*
 ########################
 ## required depencies ##
 ########################
 install each one with 'npm install [dependency]'
-for example 'npm install graceful-fs'
+for example 'npm install irc'
+fs comes preinstalled with node.js
 */
 
 var irc = require('irc'),
-    fs = require('fs'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    fs = require('fs');
 
 /*
 #######################
@@ -16,22 +26,47 @@ var irc = require('irc'),
 #######################
 change these to suit your needs
 */
+
 var bot_nick= 'fimp',
     bot_user= 'fimp',
     bot_name= 'b4x\'s imp',
-    this_channel = '#76chan',
-    this_server = 'irc.76chan.org',
+    this_channel = '#wotc',
+    this_server = '76chan.org',
     server_port = '6667',
     commandIdentifer = '!',
     usersFilePath = './users/';
 
-var sayings = fs.readFileSync('jokes.txt').toString().split("\n"),
-    greetings = fs.readFileSync('greetings.txt').toString().split("\n"),
-    icelandic = fs.readFileSync('icelandic.txt').toString().split("\n"),
-    linux = fs.readFileSync('linux.txt').toString().split("\n");
+/*
+###############
+#command .txts#
+###############
+fs will read a line from the .txt minus the newline
+remove or comment out an unwanted variable here using //
+for example
+//var linux = fs.readFileSync('linux.txt').toString().split("\n");
+remember to comment out the entire command further down in the source
+add a new command variable here
+make sure to have the .txt file containing lines seperated by newlines present before running
+for example
+create colors.txt with
+red
+blue
+green
+add this line below
+var colors = fs.readFileSync('colors.txt').toString().split("\n");
+uncomment the example colors command further down in the code
+finally add !colors to the announce string at the bottom of the code
+for example
+!linux !colors !add nick text
+*/
+
+var sayings = fs.readFileSync('jokes.txt').toString().split("\n");
+var greetings = fs.readFileSync('greetings.txt').toString().split("\n");
+var icelandic = fs.readFileSync('icelandic.txt').toString().split("\n");
+var linux = fs.readFileSync('linux.txt').toString().split("\n");
 
 var userDict = {}, // User Dictionary (cache)
-    nicks = {}; 
+    nicks = {};
 
 var bot = new irc.Client(this_server, bot_nick, {
   userName: bot_user,
@@ -42,7 +77,8 @@ var bot = new irc.Client(this_server, bot_nick, {
 });
 
 // Load users (from the usersFilePath) format is nick.txt - Extract the nick and add it to userDict
-function loadUsers() {
+function 
+loadUsers() {
   fs.readdir(usersFilePath, function(err, files) {
     if (err) {
       // failed to read the dir. Maybe logout error?
@@ -113,7 +149,7 @@ bot.addListener('message', function(from, to, message) {
     ##############
     #joke command#
     ##############
-    joke function listens for !joke, !Joke or !JOKE, and returns one line from 
+    joke function listens for !joke, !Joke or !JOKE, and returns one line from
     jokes.txt if called change
     */
     if (com.command.match(/joke/i)) {
@@ -231,7 +267,7 @@ bot.addListener('names', function(chan, chanNicks) {
 
 bot.addListener('join', function(channel, who) {
   if (who == bot_nick) {
-    bot.say(channel,'I\'m ' + bot_nick + ', try out these commands 4!joke 4!teach !linux 4!add nick text');
+    bot.say(channel,'I\'m ' + bot_nick + ', try out these commands 4!joke !teach !linux !add nick text');
   }
   else {
     var list = _.shuffle(greetings),
