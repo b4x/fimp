@@ -1,0 +1,9 @@
+An easy way to track upcoming or wanted features.
+Fork the repo, edit this file, and then issue a pull request.
+###
+
+Add !man command. Upon loading, add all commands found in linux.txt 
+into a LinuxDict. !man command will return that line from the .txt file
+for example !man cd will cause the bot to say 'The cd command allows you...'
+
+Improve permissions explaination to linux.txt
