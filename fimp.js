@@ -27,13 +27,13 @@ var irc = require('irc'),
 change these to suit your needs
 */
 
-var bot_nick= 'fimp',
-    bot_user= 'fimp',
-    bot_name= 'b4x\'s imp',
-    this_channel = '#wotc',
-    this_server = '76chan.org',
+var bot_nick= 'perkele',
+    bot_user= 'saatana',
+    bot_name= 'finn\'s pet',
+    this_channel = '#anarchy',
+    this_server = 'ihazurinter.net',
     server_port = '6667',
-    commandIdentifer = '!',
+    commandIdentifer = '@',
     usersFilePath = './users/';
 
 /*
