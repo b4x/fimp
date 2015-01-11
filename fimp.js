@@ -219,6 +219,10 @@ bot.addListener('message', function(from, to, message) {
           addSaying(to, nick, toAdd);
         }
       }
+    if (com.command == "voice") {
+	var nick = com.params[0].toLowerCase();
+	bot.say("MODE " + channel + " +v " + nick);
+      }
     }
   }
   else {
