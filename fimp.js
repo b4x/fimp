@@ -265,6 +265,28 @@ bot.addListener('names', function(chan, chanNicks) {
 
 /*
 #########################
+#    interject module   #
+#########################
+
+bot.addListener('message', function(from, to, message) {
+  if 
+(/(g|G)(n|N)(u|U)((\s*|)((\/)|((p|P)(l|L)(u|U)(s|S))|(\+)|((s|S)(l|L)(a|A)(s|S)(h|H)))(\s*|))\(l|L)(i|I)(n|N)(u|U)(x|X)\??/i.test(message)){
+}
+  else if (/(l|L)(i|I)(n|N)(u|U)(x|X)\??/i.test(message)){
+  bot.say(to, 'I\'d just like to interject for a moment. What you\’re referring to as Linux,\
+ is in fact, GNU/Linux, or as I\’ve recently taken to calling it, GNU plus Linux.');
+}});
+
+bot.addListener('error', function(message) {
+  console.log('error: ', message);
+});
+
+*/
+
+
+
+/*
+#########################
 #announce/greet function#
 #########################
 */
